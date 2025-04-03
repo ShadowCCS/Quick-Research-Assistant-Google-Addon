@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "Quick Research Assistant",
+  "version": "1.2",
+  "description": "Get AI-powered information about highlighted text without leaving your page",
+  "permissions": ["contextMenus", "storage", "activeTab", "scripting", "tts", "downloads"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["marked.js", "content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["styles.css", "marked.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "commands": {
+    "research-selection": {
+      "suggested_key": {
+        "default": "Alt+Shift+R",
+        "mac": "Alt+Shift+R"
+      },
+      "description": "Research highlighted text"
+    },
+    "quick-research-selection": {
+      "suggested_key": {
+        "default": "Alt+Shift+Q",
+        "mac": "Alt+Shift+Q"
+      },
+      "description": "Quick research highlighted text"
+    },
+    "save-research": {
+      "suggested_key": {
+        "default": "Alt+Shift+S",
+        "mac": "Alt+Shift+S"
+      },
+      "description": "Save current research"
+    }
+  }
+}

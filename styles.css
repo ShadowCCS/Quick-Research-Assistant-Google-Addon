@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.quick-research-panel {
+  position: fixed;
+  width: 500px;
+  max-width: 80vw;
+  max-height: 70vh;
+  background-color: #2d2d2d;
+  color: #f0f0f0;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  z-index: 2147483647; /* Maximum z-index */
+  padding: 18px;
+  overflow-y: auto;
+  font-family: 'Inter', sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #333;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: panel-fade-in 0.2s ease-out;
+  transition: box-shadow 0.2s ease;
+}
+
+@keyframes panel-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quick-research-panel:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.quick-research-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quick-research-panel::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.quick-research-panel::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 8px;
+}
+
+.quick-research-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+.quick-research-close-btn:hover {
+  color: #fff;
+}
+
+.quick-research-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.quick-research-title::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 18px;
+  background-color: #4285f4;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+.quick-research-content {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 5px;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #333;
+}
+
+.quick-research-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quick-research-content::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.quick-research-content::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 8px;
+}
+
+/* Markdown styles */
+.quick-research-content h1, 
+.quick-research-content h2, 
+.quick-research-content h3, 
+.quick-research-content h4, 
+.quick-research-content h5, 
+.quick-research-content h6 {
+  color: #fff;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.quick-research-content h1 {
+  font-size: 1.5em;
+}
+
+.quick-research-content h2 {
+  font-size: 1.3em;
+}
+
+.quick-research-content h3 {
+  font-size: 1.2em;
+}
+
+.quick-research-content p {
+  margin-bottom: 10px;
+}
+
+.quick-research-content ul, 
+.quick-research-content ol {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.quick-research-content li {
+  margin-bottom: 4px;
+}
+
+.quick-research-content a {
+  color: #4285f4;
+  text-decoration: none;
+}
+
+.quick-research-content a:hover {
+  text-decoration: underline;
+}
+
+.quick-research-content code {
+  background-color: #3d3d3d;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.quick-research-content pre {
+  background-color: #3d3d3d;
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.quick-research-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.quick-research-content blockquote {
+  border-left: 3px solid #4285f4;
+  padding-left: 10px;
+  margin: 10px 0;
+  color: #bbb;
+}
+
+.quick-research-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 15px 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.quick-research-content img:hover {
+  transform: scale(1.02);
+}
+
+.quick-research-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.quick-research-content th,
+.quick-research-content td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #444;
+}
+
+.quick-research-content th {
+  background-color: #3d3d3d;
+}
+
+.quick-research-loading {
+  text-align: center;
+  padding: 20px;
+  color: #bbb;
+}
+
+.quick-research-image {
+  float: right;
+  margin: 0 0 10px 15px;
+  max-width: 150px;
+  border-radius: 4px;
+}
+
+.quick-research-sources {
+  font-size: 12px;
+  border-top: 1px solid #444;
+  padding-top: 10px;
+  display: none;
+  color: #bbb;
+}
+
+.quick-research-sources-title {
+  margin: 0 0 5px 0;
+  font-weight: 500;
+}
+
+.quick-research-sources-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.quick-research-sources-list a {
+  color: #61afef;
+  text-decoration: none;
+}
+
+.quick-research-sources-list a:hover {
+  text-decoration: underline;
+  color: #89cfff;
+}

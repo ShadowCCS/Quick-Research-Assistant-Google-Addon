@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quick Research Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="marked.js"></script>
+  <style>
+    body {
+      width: 380px;
+      padding: 15px;
+      font-family: 'Inter', sans-serif;
+      background-color: #2d2d2d;
+      color: #f0f0f0;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light-theme {
+      background-color: #f5f5f5;
+      color: #333333;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    body.light-theme h2 {
+      color: #333;
+    }
+    
+    p {
+      line-height: 1.6;
+      color: #e0e0e0;
+    }
+
+    body.light-theme p {
+      color: #555;
+    }
+    
+    .instructions {
+      background-color: #3d3d3d;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 15px;
+      transition: background-color 0.3s;
+    }
+
+    body.light-theme .instructions {
+      background-color: #e5e5e5;
+    }
+    
+    .instruction-step {
+      margin-bottom: 10px;
+      color: #ddd;
+    }
+
+    body.light-theme .instruction-step {
+      color: #555;
+    }
+    
+    .api-setup {
+      background-color: #3d3d3d;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 15px;
+      transition: background-color 0.3s;
+    }
+
+    body.light-theme .api-setup {
+      background-color: #e5e5e5;
+    }
+    
+    .api-setup h3 {
+      margin-top: 0;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    body.light-theme .api-setup h3 {
+      color: #333;
+    }
+    
+    .api-input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      background-color: #444;
+      border: 1px solid #555;
+      border-radius: 3px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body.light-theme .api-input {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+    
+    .save-button {
+      padding: 8px 16px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .save-button:hover {
+      background-color: #5294ff;
+    }
+    
+    .modern-button {
+      padding: 8px 16px;
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 100px;
+    }
+    
+    .modern-button:hover {
+      background-color: #5294ff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 5px rgba(0,0,0,0.15);
+    }
+    
+    .modern-button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .pdf-button {
+      background-color: #34A853;
+    }
+    
+    .pdf-button:hover {
+      background-color: #40c463;
+    }
+    
+    .copy-button {
+      background-color: #FBBC05;
+    }
+    
+    .copy-button:hover {
+      background-color: #fdc720;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 4px;
+      font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9999;
+      transform: translateY(20px);
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .save-status {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #8f8;
+      display: none;
+    }
+    
+    .version {
+      font-size: 10px;
+      color: #888;
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    /* Keyboard shortcuts styling */
+    .shortcut-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      align-items: center;
+    }
+    
+    .shortcut-key {
+      background-color: #444;
+      color: #fff;
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: 12px;
+      display: inline-block;
+      min-width: 80px;
+      text-align: center;
+    }
+    
+    body.light-theme .shortcut-key {
+      background-color: #ddd;
+      color: #333;
+    }
+    
+    .shortcut-desc {
+      font-size: 12px;
+      color: #ddd;
+    }
+    
+    body.light-theme .shortcut-desc {
+      color: #555;
+    }
+    
+    .shortcut-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #999;
+      font-style: italic;
+    }
+    
+    body.light-theme .shortcut-note {
+      color: #777;
+    }
+
+    /* Theme toggle switch styles */
+    .theme-switch {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .theme-switch-label {
+      font-size: 12px;
+      margin-right: 8px;
+      font-weight: 500;
+    }
+
+    body.light-theme .theme-switch-label {
+      color: #555;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #444;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4285f4;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .slider-icon {
+      position: absolute;
+      top: 4px;
+      font-size: 12px;
+      color: white;
+      display: none; /* Hide all icons */
+    }
+  </style>
+  <script src="popup.js"></script>
+</head>
+<body>
+  <div class="theme-switch">
+    <span class="theme-switch-label">Dark Mode</span>
+    <label class="switch">
+      <input type="checkbox" id="theme-toggle">
+      <span class="slider">
+        <!-- Icons removed as requested -->
+      </span>
+    </label>
+  </div>
+
+  <h2>Quick Research Assistant</h2>
+  <p>Quickly get information about any text without leaving your page.</p>
+  
+  <div class="api-setup">
+    <h3>Google Gemini API Setup</h3>
+    <p style="font-size: 13px; margin-top: 0;">Enter your Gemini API key to enable AI-powered research</p>
+    <input type="text" id="api-key" class="api-input" placeholder="Enter your Gemini API key">
+    <button id="save-api-key" class="save-button">Save API Key</button>
+    <div id="save-status" class="save-status">API key saved!</div>
+  </div>
+  
+  <div class="api-setup">
+    <h3>Google Image Search Setup (Optional)</h3>
+    <p style="font-size: 13px; margin-top: 0;">For image results, add Google Custom Search API credentials</p>
+    <input type="text" id="google-search-api-key" class="api-input" placeholder="Google Custom Search API Key">
+    <input type="text" id="google-search-engine-id" class="api-input" placeholder="Custom Search Engine ID">
+    <button id="save-google-keys" class="save-button">Save Search Keys</button>
+    <div id="google-save-status" class="save-status">Search API settings saved!</div>
+  </div>
+  
+  <div class="instructions">
+    <div class="instruction-step">1. Highlight any text on a webpage</div>
+    <div class="instruction-step">2. Right-click and select "Research: [text]"</div>
+    <div class="instruction-step">3. View information in the popup panel</div>
+  </div>
+  
+  <div class="api-setup">
+    <h3>Keyboard Shortcuts</h3>
+    <div style="font-size: 13px;">
+      <div class="shortcut-row">
+        <span class="shortcut-key">Ctrl+Shift+R</span>
+        <span class="shortcut-desc">Research selected text</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-key">Ctrl+Shift+Q</span>
+        <span class="shortcut-desc">Quick research selected text</span>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-key">Ctrl+Shift+S</span>
+        <span class="shortcut-desc">Save current research</span>
+      </div>
+      <div class="shortcut-note">On Mac, use Command instead of Ctrl</div>
+    </div>
+  </div>
+  
+  <div class="version">v1.2 - Powered by Gemini AI</div>
+</body>
+</html>
