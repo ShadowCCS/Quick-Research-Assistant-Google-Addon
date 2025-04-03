@@ -2,7 +2,32 @@
 
 A powerful Chrome extension that provides AI-powered information about any highlighted text without leaving your page.
 
-## Features
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.2-blue" alt="Version 1.2">
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
+  <img src="https://img.shields.io/badge/platform-Chrome-orange" alt="Chrome">
+</p>
+
+<p align="center">
+  <img src="./gitAssets/img.png" alt="Quick Research Assistant Showcase" width="600">
+  <br>
+  <em>Quick Research Assistant in action</em>
+</p>
+
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [API Setup Requirements](#api-setup-requirements)
+- [Usage](#usage)
+- [Additional Features](#additional-features)
+- [Privacy](#privacy)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+- [Version](#version)
+
+## ✨ Features
 
 - Research any text on any webpage with a simple right-click or keyboard shortcut
 - AI-powered responses powered by Google's Gemini AI
@@ -12,7 +37,7 @@ A powerful Chrome extension that provides AI-powered information about any highl
 - Dark and light theme options
 - Multiple language support
 
-## Installation
+## 🚀 Installation
 
 1. Download or clone this repository
 2. Open Chrome and navigate to `chrome://extensions/`
@@ -20,7 +45,7 @@ A powerful Chrome extension that provides AI-powered information about any highl
 4. Click "Load unpacked" and select the folder containing the extension files
 5. The Quick Research Assistant extension should now appear in your extensions list
 
-## API Setup Requirements
+## 🔑 API Setup Requirements
 
 This extension requires API keys to function properly:
 
@@ -57,30 +82,30 @@ This extension requires API keys to function properly:
 7. Copy this ID
 8. Open the extension's popup and paste it in the "Custom Search Engine ID" field and click "Save Search Keys"
 
-## Usage
+## 🔍 Usage
 
 1. Highlight any text on a webpage
 2. Right-click and select "Research: [text]" from the context menu
 3. View the information in the popup panel
 
-### Keyboard Shortcuts
+### ⌨️ Keyboard Shortcuts
 
 - `Alt+Shift+R` (Windows/Linux) or `Option+Shift+R` (Mac): Research selected text
 - `Alt+Shift+Q` (Windows/Linux) or `Option+Shift+Q` (Mac): Quick research selected text
 - `Alt+Shift+S` (Windows/Linux) or `Option+Shift+S` (Mac): Save current research
 
-## Additional Features
+## 🛠 Additional Features
 
 - **Theme Toggle**: Switch between dark and light themes
 - **Text-to-Speech**: Listen to research results being read aloud
 - **Multiple Languages**: Change the language of research results
 - **Download Options**: Save research as PDF or copy to clipboard
 
-## Privacy
+## 🔒 Privacy
 
 Your API keys are stored locally in your browser's storage and are only used to make API calls to the respective services. This extension does not collect or share your personal data.
 
-## Development
+## 💻 Development
 
 This extension is built using vanilla JavaScript, HTML, and CSS. It uses:
 
@@ -89,10 +114,23 @@ This extension is built using vanilla JavaScript, HTML, and CSS. It uses:
 - Chrome Extension APIs for browser integration
 - Marked.js for rendering Markdown content
 
-## License
+## 🤝 Contributing
+
+Contributions are welcome! Here's how you can contribute:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+Please make sure to update tests as appropriate.
+
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Version
+## 🔢 Version
 
-Current version: 1.2 
+Current version: 1.2
